@@ -2,74 +2,108 @@
 From here on out I will use the abrevation r,p,s to mean rock, paper and scissors*/
 
 //Randomly generates a number between 0 and 2 and assigns them to rock,paper, scissors
-let computerNumber = Math.floor (Math.random() * 3);
 
-//A variable to store the string equivalent to r,p,s
-let computerChoice = null; 
-
-console.log(computerNumber);
-
-if (computerNumber == 0) {
-    computerChoice = "rock"; 
-}
-
-else if (computerNumber == 1) {
-    computerChoice = "paper"; 
-}
-
-else {
-    computerChoice = "scissor"; 
-}
-//Prints the r,p,s choice after it is assigned
-console.log("Computer choice " + computerChoice);
-
+//A variable to store the string equivalent to r,p,s 
 
 //Here the player types a string for their r,p,s choice 
-let playerChoice = prompt ("Choose rock, paper or scissors")
-console.log ("Player choice " + playerChoice)
+let playerSelectionRaw = prompt ("Choose rock, paper or scissors");
+let playerSelection = playerSelectionRaw.toLowerCase(); 
+
+//These variables hold a tally of each game's winner 
+let playerScore = 0; 
+let computerScore = 0; 
+
+//Stores the outcome string for the match
+let outcome = null; 
+
+function computerPlay(){
+    let computerSelection = null; 
+    let computerNumber = Math.floor (Math.random() * 3);
+
+    console.log(computerNumber);
+
+    if (computerNumber == 0) {
+        computerSelection = "rock"; 
+    }
+
+    else if (computerNumber == 1) {
+        computerSelection = "paper"; 
+    }
+
+    else {
+        computerSelection = "scissor"; 
+    }
+    return computerSelection;
+}
+
+let computerSelection = computerPlay(); 
+
 
 //If else statements to compare the player choice with the computer's and prints the result
-if (playerChoice == "rock") {
+function playRound (playerSelection, computerSelection){
+    if (playerSelection == "rock") {
 
-    if (computerChoice =="paper"){
-        console.log("Paper covers rock, you LOSE!");
+        if (computerSelection =="paper"){
+            outcome = ("Paper covers rock, you LOSE!");
+            computerScore = computerScore + 1; 
+        }
+
+        else if(computerSelection == "rock"){
+            outcome = ("The computer also chose rock, tie");
+        }
+
+        else{
+            outcome = ("Rock smashes scissors! YOU WIN!");
+            playerScore = playerScore + 1; 
+        }
     }
 
-    else if(computerChoice == "rock"){
-        console.log("The computer also chose rock, tie");
+    else if (playerSelection == "paper") {
+
+        if (computerSelection == "paper"){
+            outcome = ("The computer also picked paper, tie.")
+        }
+
+        else if (computerSelection == "rock"){
+            outcome = ("Paper covers rock! YOU WIN!");
+            playerScore = playerScore + 1; 
+        }
+
+        else{
+            outcome = ("Scissors cut paper. YOU LOSE!");
+            computerScore = computerScore + 1; 
+        }
     }
 
-    else{
-        console.log("Rock smashes scissors! YOU WIN!");
+    else if (playerSelection == "scissors") {
+
+        if (computerSelection == "paper"){
+            outcome = ("Scissors cut paper. YOU WIN!");
+            playerScore = playerScore + 1; 
+        }
+
+        if (computerSelection == "rock") {
+            outcome = ("Rock smashes scissors. YOU LOSE!");
+            computerScore = computerScore + 1; 
+        }
+
+        if (computerSelection == "scissors") {
+            outcome = ("The computer also picked scissors. tie.");
+        }
+    }
+    console.log(outcome);
+    console.log("player score " + playerScore);
+    return computerScore;
+    return playerScore;  
+    return outcome; 
+}
+
+function game(){
+    for (let i = 0; i < 0; i++) {
+        playerSelectionRaw = prompt ("Choose rock, paper or scissors");
+        playerSelection = playerSelectionRaw.toLowerCase();
+        computerSelection = computerPlay(); 
+        playRound(playerSelection, computerSelection);
     }
 }
 
-else if (playerChoice == "paper") {
-
-    if (computerChoice == "paper"){
-        console.log("The computer also picked paper, tie.")
-    }
-
-    else if (computerChoice == "rock"){
-        console.log("Paper covers rock! YOU WIN!");
-    }
-
-    else{
-        console.log("Scissors cut paper. YOU LOSE!");
-    }
-}
-
-else if (playerChoice == "scissors") {
-
-    if (computerChoice == "paper"){
-        console.log("Scissors cut paper. YOU WIN!");
-    }
-
-    if (computerChoice == "rock") {
-        console.log("Rock smashes scissors. YOU LOSE!");
-    }
-
-    if (computerChoice == "scissors") {
-        console.log("The computer also picked scissors. tie.");
-    }
-}
