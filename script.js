@@ -16,6 +16,9 @@ let computerScore = 0;
 //Stores the outcome string for the match
 let outcome = null; 
 
+//Used to the print the string that declares winner or loser at the end game ()
+let finalOutcomeString = null; 
+
 function computerPlay(){
     let computerSelection = null; 
     let computerNumber = Math.floor (Math.random() * 3);
@@ -93,17 +96,28 @@ function playRound (playerSelection, computerSelection){
     }
     console.log(outcome);
     console.log("player score " + playerScore);
+    console.log("computerScore " + computerScore);
     return computerScore;
     return playerScore;  
     return outcome; 
 }
 
 function game(){
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < 5; i++) {
         playerSelectionRaw = prompt ("Choose rock, paper or scissors");
         playerSelection = playerSelectionRaw.toLowerCase();
         computerSelection = computerPlay(); 
         playRound(playerSelection, computerSelection);
     }
+
+    if (playerScore > computerScore){
+        finalOutcomeString = ("You beat the computer. Nice job");
+    }
+
+    else {
+        finalOutcomeString = ("The computer wins. Please try again ");
+    }
+
+    console.log(finalOutcomeString);
 }
 
